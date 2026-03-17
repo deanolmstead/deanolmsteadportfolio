@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dean Olmstead — Designer &amp; Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --ink:        #0D0D0D;
+            --ink-soft:   #1A1A1A;
+            --warm:       #F5F0EB;
+            --warm-dim:   rgba(245,240,235,0.55);
+            --warm-faint: rgba(245,240,235,0.08);
+            --amber:      #D4A853;
+            --amber-dim:  rgba(212,168,83,0.12);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Source Sans 3', sans-serif; background: var(--ink); color: var(--warm); overflow-x: hidden; }
+
+        /* Progress */
+        #progress { position: fixed; top: 0; left: 0; height: 2px; width: 0%; background: linear-gradient(90deg, var(--amber), #E8C97A); z-index: 9999; pointer-events: none; }
+
+        /* Nav */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 9000; display: flex; align-items: center; justify-content: space-between; padding: 24px 7vw; transition: padding .4s cubic-bezier(.4,0,.2,1), background .4s, border-color .4s; border-bottom: 1px solid transparent; }
+        nav.scrolled { padding: 14px 7vw; background: rgba(13,13,13,.93); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom-color: var(--amber-dim); }
+        .nav-logo { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--warm); text-decoration: none; }
+        .nav-logo em { font-style: italic; font-weight: 400; color: var(--amber); }
+        .nav-links { display: flex; gap: 36px; }
+        .nav-links a { font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 500; color: rgba(245,240,235,.45); text-decoration: none; position: relative; transition: color .3s; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--amber); transition: width .4s cubic-bezier(.4,0,.2,1); }
+        .nav-links a:hover { color: var(--warm); }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* Hero */
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 7vw 10vh; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -10%; right: -5%; width: 55%; height: 75%; background: radial-gradient(ellipse at top right, rgba(212,168,83,.055) 0%, transparent 65%); pointer-events: none; }
+        .hero-rule { position: absolute; top: 0; left: calc(7vw - 1px); width: 1px; height: 100%; background: linear-gradient(to bottom, transparent 0%, var(--amber-dim) 30%, var(--amber-dim) 70%, transparent 100%); }
+        .hero-eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--amber); font-weight: 500; margin-bottom: 28px; }
+        .hero-name { font-family: 'Playfair Display', serif; font-size: clamp(52px,9vw,120px); font-weight: 700; line-height: 1.0; letter-spacing: -1px; margin-bottom: 36px; }
+        .hero-name em { font-style: italic; font-weight: 400; color: var(--amber); display: block; }
+        .hero-tagline { font-size: clamp(15px,1.4vw,19px); font-weight: 300; color: var(--warm-dim); max-width: 520px; line-height: 1.75; }
+        .hero-scroll { position: absolute; bottom: 40px; right: 7vw; display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: rgba(245,240,235,.2); }
+        .hero-scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, rgba(212,168,83,.15), transparent); animation: scrollLine 2.4s ease-in-out infinite; }
+        @keyframes scrollLine { 0%,100% { transform: scaleY(1); opacity: .5; } 50% { transform: scaleY(.4); opacity: .2; } }
+
+        /* Section */
+        .section { padding: 120px 7vw; }
+        .section-header { display: flex; align-items: baseline; gap: 20px; margin-bottom: 64px; }
+        .section-label { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--amber); font-weight: 500; white-space: nowrap; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(28px,3.5vw,44px); font-weight: 600; }
+        .section-rule { flex: 1; height: 1px; background: linear-gradient(to right, var(--warm-faint), transparent); margin-left: 8px; }
+
+        /* Projects */
+        .project-block { display: grid; grid-template-columns: 1fr 1fr; min-height: 360px; border-top: 1px solid var(--warm-faint); }
+        .project-block:last-child { border-bottom: 1px solid var(--warm-faint); }
+        .project-block.flip .project-info  { order: 2; }
+        .project-block.flip .project-stage { order: 1; }
+        .project-info { padding: 56px 60px; display: flex; flex-direction: column; justify-content: center; }
+        .project-stage { background: var(--ink-soft); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .stage-text { font-family: 'Playfair Display', serif; font-size: clamp(56px,7vw,96px); font-weight: 700; letter-spacing: -2px; color: rgba(245,240,235,.025); text-transform: uppercase; user-select: none; transition: color .5s; }
+        .project-block:hover .stage-text { color: rgba(212,168,83,.07); }
+        .project-stage::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--amber), transparent); transform: scaleX(0); transition: transform .6s cubic-bezier(.4,0,.2,1); }
+        .project-block:hover .project-stage::after { transform: scaleX(1); }
+        .stage-screenshot { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; filter: brightness(0.82) saturate(0.9); transition: filter .5s; }
+        .project-block:hover .stage-screenshot { filter: brightness(0.95) saturate(1.05); }
+        .project-num { font-family: 'Playfair Display', serif; font-style: italic; font-size: 13px; color: var(--amber); margin-bottom: 18px; opacity: .8; }
+        .project-title { font-family: 'Playfair Display', serif; font-size: clamp(22px,2.2vw,32px); font-weight: 600; line-height: 1.15; margin-bottom: 14px; transition: color .3s; }
+        .project-block:hover .project-title { color: var(--amber); }
+        .project-desc { font-size: 15px; font-weight: 300; color: var(--warm-dim); line-height: 1.7; margin-bottom: 22px; max-width: 420px; }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 28px; }
+        .tag { font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 13px; border: 1px solid rgba(245,240,235,.1); color: rgba(245,240,235,.4); transition: border-color .3s, color .3s; }
+        .tag:hover { border-color: var(--amber); color: var(--amber); }
+        .project-link { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; color: var(--amber); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: gap .3s; }
+        .project-link:hover { gap: 14px; }
+        .project-link .arr { transition: transform .3s; }
+        .project-link:hover .arr { transform: translateX(4px); }
+
+        /* Muted (Mono Wind) */
+        .project-block.muted .project-num   { opacity: .35; }
+        .project-block.muted .project-title { color: rgba(245,240,235,.5) !important; }
+        .project-block.muted .project-desc  { opacity: .6; }
+        .project-block.muted .project-link  { opacity: .5; }
+        .project-block.muted:hover .project-link { opacity: .75; }
+
+        /* Footer */
+        footer { padding: 80px 7vw; border-top: 1px solid var(--warm-faint); display: flex; align-items: flex-end; justify-content: space-between; }
+        .footer-sub { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--amber); font-weight: 500; margin-bottom: 12px; }
+        .footer-email a { font-family: 'Playfair Display', serif; font-size: clamp(20px,2.8vw,38px); font-weight: 400; font-style: italic; color: var(--warm); text-decoration: none; position: relative; transition: color .3s; }
+        .footer-email a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--amber); transition: width .4s cubic-bezier(.4,0,.2,1); }
+        .footer-email a:hover { color: var(--amber); }
+        .footer-email a:hover::after { width: 100%; }
+        .footer-copy { font-size: 12px; color: rgba(245,240,235,.2); letter-spacing: 1px; padding-bottom: 6px; }
+
+        /* Reveal */
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+            .hero-scroll-line { animation: none; }
+            * { transition-duration: .01ms !important; }
+        }
+
+        /* Mobile */
+        @media (max-width: 860px) {
+            nav, nav.scrolled { padding-left: 6vw; padding-right: 6vw; }
+            .nav-links { display: none; }
+            .hero { padding: 0 6vw 12vh; }
+            .section { padding: 80px 6vw; }
+            .project-block { grid-template-columns: 1fr; }
+            .project-block.flip .project-info  { order: 1; }
+            .project-block.flip .project-stage { order: 2; }
+            .project-info { padding: 40px 24px; }
+            .project-stage { min-height: 160px; }
+            footer { flex-direction: column; gap: 28px; padding: 60px 6vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="progress"></div>
+
+    <nav id="nav">
+        <a href="#" class="nav-logo">Dean <em>Olmstead</em></a>
+        <div class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-rule"></div>
+        <p class="hero-eyebrow">Designer &amp; Developer &mdash; 2026</p>
+        <h1 class="hero-name">Dean<br><em>Olmstead</em></h1>
+        <p class="hero-tagline">Building digital experiences at the intersection of design and engineering</p>
+        <div class="hero-scroll">
+            <div class="hero-scroll-line"></div>
+            Scroll
+        </div>
+    </section>
+
+    <!-- Work -->
+    <section class="section" id="work">
+        <div class="section-header reveal">
+            <span class="section-label">Selected Work</span>
+            <h2 class="section-title">Projects</h2>
+            <span class="section-rule"></span>
+        </div>
+
+        <div class="project-block reveal">
+            <div class="project-info">
+                <div class="project-num">01</div>
+                <h3 class="project-title">Pollstar News</h3>
+                <p class="project-desc">Entertainment industry news platform delivering the latest in live events, touring, and venue coverage to professionals worldwide.</p>
+                <div class="project-tags"><span class="tag">Editorial</span><span class="tag">Dark UI</span><span class="tag">WordPress</span></div>
+                <a href="https://news.pollstar.com" target="_blank" rel="noopener" class="project-link">Visit Site <span class="arr">&rarr;</span></a>
+            </div>
+            <div class="project-stage"><img src="img/pollstar-news.png" alt="Pollstar News" class="stage-screenshot"></div>
+        </div>
+
+        <div class="project-block flip reveal">
+            <div class="project-info">
+                <div class="project-num">02</div>
+                <h3 class="project-title">Pollstar Store</h3>
+                <p class="project-desc">E-commerce platform for live entertainment merchandise, industry publications, and event-related products with seamless checkout.</p>
+                <div class="project-tags"><span class="tag">E-Commerce</span><span class="tag">WooCommerce</span><span class="tag">Dark UI</span></div>
+                <a href="https://store.pollstar.com" target="_blank" rel="noopener" class="project-link">Visit Site <span class="arr">&rarr;</span></a>
+            </div>
+            <div class="project-stage"><img src="img/pollstar-store.png" alt="Pollstar Store" class="stage-screenshot"></div>
+        </div>
+
+        <div class="project-block reveal">
+            <div class="project-info">
+                <div class="project-num">03</div>
+                <h3 class="project-title">NACPA Reception</h3>
+                <p class="project-desc">Interactive event RSVP site with real-time attendance tracking, guest management, and a polished registration experience.</p>
+                <div class="project-tags"><span class="tag">Event</span><span class="tag">RSVP</span><span class="tag">Interactive</span></div>
+                <a href="https://nacpareception.net" target="_blank" rel="noopener" class="project-link">Visit Site <span class="arr">&rarr;</span></a>
+            </div>
+            <div class="project-stage"><img src="img/nacpa-reception.png" alt="NACPA Reception" class="stage-screenshot"></div>
+        </div>
+
+        <div class="project-block flip reveal">
+            <div class="project-info">
+                <div class="project-num">04</div>
+                <h3 class="project-title">Fulton 55</h3>
+                <p class="project-desc">Entertainment venue website showcasing upcoming events, artist lineups, and ticket purchasing for a premier live music destination.</p>
+                <div class="project-tags"><span class="tag">Venue</span><span class="tag">Events</span><span class="tag">WordPress</span></div>
+                <a href="https://fulton55.com" target="_blank" rel="noopener" class="project-link">Visit Site <span class="arr">&rarr;</span></a>
+            </div>
+            <div class="project-stage"><img src="img/fulton55.png" alt="Fulton 55" class="stage-screenshot"></div>
+        </div>
+
+        <div class="project-block reveal">
+            <div class="project-info">
+                <div class="project-num">05</div>
+                <h3 class="project-title">NACPA</h3>
+                <p class="project-desc">Professional association website serving members with resources, event listings, and industry news for certified public accountants.</p>
+                <div class="project-tags"><span class="tag">Association</span><span class="tag">WordPress</span></div>
+                <a href="https://nacpa.net" target="_blank" rel="noopener" class="project-link">Visit Site <span class="arr">&rarr;</span></a>
+            </div>
+            <div class="project-stage"><img src="img/nacpa.png" alt="NACPA" class="stage-screenshot"></div>
+        </div>
+
+        <div class="project-block flip muted reveal">
+            <div class="project-info">
+                <div class="project-num">06</div>
+                <h3 class="project-title">Mono Wind Casino</h3>
+                <p class="project-desc">Casino website with gaming information, promotions, and visitor amenities for a regional entertainment destination.</p>
+                <div class="project-tags"><span class="tag">Casino</span><span class="tag">WordPress</span></div>
+                <a href="https://monowind.com" target="_blank" rel="noopener" class="project-link">Visit Site <span class="arr">&rarr;</span></a>
+            </div>
+            <div class="project-stage"><img src="img/monowind.png" alt="Mono Wind Casino" class="stage-screenshot"></div>
+        </div>
+
+        <div class="project-block reveal">
+            <div class="project-info">
+                <div class="project-num">07</div>
+                <h3 class="project-title">JoecusPocus</h3>
+                <p class="project-desc">Vibrant party entertainment brand featuring an online booking system, service packages, and an energetic brand experience.</p>
+                <div class="project-tags"><span class="tag">Brand</span><span class="tag">Booking</span><span class="tag">Playful</span></div>
+                <a href="https://joecuspocus.com" target="_blank" rel="noopener" class="project-link">Visit Site <span class="arr">&rarr;</span></a>
+            </div>
+            <div class="project-stage"><img src="img/joecuspocus.png" alt="JoecusPocus" class="stage-screenshot"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="reveal">
+            <div class="footer-sub">Get in touch</div>
+            <div class="footer-email"><a href="mailto:dean@deanolmstead.com">dean@deanolmstead.com</a></div>
+        </div>
+        <div class="footer-copy reveal">&copy; 2026 Dean Olmstead</div>
+    </footer>
+
+    <script>
+        const progress = document.getElementById('progress');
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            const h = document.documentElement.scrollHeight - window.innerHeight;
+            progress.style.width = (window.scrollY / h * 100) + '%';
+            nav.classList.toggle('scrolled', window.scrollY > 60);
+        }, { passive: true });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach((el, i) => { el.style.transitionDelay = (i * 75) + 'ms'; observer.observe(el); });
+    </script>
+</body>
+</html>
