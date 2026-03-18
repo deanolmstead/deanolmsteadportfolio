@@ -89,7 +89,7 @@
         footer { padding: 80px 7vw; border-top: 1px solid var(--warm-faint); display: flex; align-items: flex-end; justify-content: space-between; }
         .footer-sub { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--amber); font-weight: 500; margin-bottom: 12px; }
         .footer-email a { font-family: 'Playfair Display', serif; font-size: clamp(20px,2.8vw,38px); font-weight: 400; font-style: italic; color: var(--warm); text-decoration: none; }
-        .footer-copy { font-size: 12px; color: rgba(245,240,235,.2); letter-spacing: 1px; padding-bottom: 6px; }
+        .footer-copy { font-size: 12px; color: rgba(245,240,235,.45); letter-spacing: 1px; padding-bottom: 6px; }
 
         /* Reveal */
         .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1); }
@@ -233,10 +233,11 @@
             <div class="footer-sub">Get in touch</div>
             <div class="footer-email"><a href="mailto:dean@deanolmstead.com">dean@deanolmstead.com</a></div>
         </div>
-        <div class="footer-copy reveal">&copy; 2026 Dean Olmstead</div>
+        <div class="footer-copy reveal">&copy; <span id="year"></span> Dean Olmstead</div>
     </footer>
 
     <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
         const progress = document.getElementById('progress');
         const nav = document.getElementById('nav');
         window.addEventListener('scroll', () => {
