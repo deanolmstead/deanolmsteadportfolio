@@ -12,7 +12,7 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root {
             --ink:        #0D0D0D;
-            --ink-soft:   #1A1A1A;
+            --ink-soft:   #131210;
             --warm:       #F5F0EB;
             --warm-dim:   rgba(245,240,235,0.55);
             --warm-faint: rgba(245,240,235,0.08);
@@ -56,8 +56,7 @@
         .section-rule { flex: 1; height: 1px; background: linear-gradient(to right, var(--warm-faint), transparent); margin-left: 8px; }
 
         /* Projects */
-        .project-block { display: grid; grid-template-columns: 1fr 1fr; min-height: 360px; border-top: 1px solid var(--warm-faint); }
-        .project-block:last-child { border-bottom: 1px solid var(--warm-faint); }
+        .project-block { display: grid; grid-template-columns: 1fr 1fr; min-height: 360px; border-radius: 12px; border: 1px solid rgba(212,168,83,0.12); box-shadow: 0 2px 0 rgba(212,168,83,0.06) inset, 0 8px 32px rgba(0,0,0,0.5), 0 24px 64px rgba(0,0,0,0.4); overflow: hidden; margin-bottom: 32px; }
         .project-block.flip .project-info  { order: 2; }
         .project-block.flip .project-stage { order: 1; }
         .project-info { padding: 56px 60px; display: flex; flex-direction: column; justify-content: center; }
@@ -66,8 +65,7 @@
         .project-block:hover .stage-text { color: rgba(212,168,83,.07); }
         .project-stage::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--amber), transparent); transform: scaleX(0); transition: transform .6s cubic-bezier(.4,0,.2,1); }
         .project-block:hover .project-stage::after { transform: scaleX(1); }
-        .stage-screenshot { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; filter: brightness(0.82) saturate(0.9); transition: filter .5s; }
-        .project-block:hover .stage-screenshot { filter: brightness(0.95) saturate(1.05); }
+        .stage-screenshot { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; filter: brightness(0.82) saturate(0.9); }
         .project-num { font-family: 'Playfair Display', serif; font-style: italic; font-size: 13px; color: var(--amber); margin-bottom: 18px; opacity: .8; }
         .project-title { font-family: 'Playfair Display', serif; font-size: clamp(22px,2.2vw,32px); font-weight: 600; line-height: 1.15; margin-bottom: 14px; transition: color .3s; }
         .project-block:hover .project-title { color: var(--amber); }
@@ -90,10 +88,7 @@
         /* Footer */
         footer { padding: 80px 7vw; border-top: 1px solid var(--warm-faint); display: flex; align-items: flex-end; justify-content: space-between; }
         .footer-sub { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--amber); font-weight: 500; margin-bottom: 12px; }
-        .footer-email a { font-family: 'Playfair Display', serif; font-size: clamp(20px,2.8vw,38px); font-weight: 400; font-style: italic; color: var(--warm); text-decoration: none; position: relative; transition: color .3s; }
-        .footer-email a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--amber); transition: width .4s cubic-bezier(.4,0,.2,1); }
-        .footer-email a:hover { color: var(--amber); }
-        .footer-email a:hover::after { width: 100%; }
+        .footer-email a { font-family: 'Playfair Display', serif; font-size: clamp(20px,2.8vw,38px); font-weight: 400; font-style: italic; color: var(--warm); text-decoration: none; }
         .footer-copy { font-size: 12px; color: rgba(245,240,235,.2); letter-spacing: 1px; padding-bottom: 6px; }
 
         /* Reveal */
