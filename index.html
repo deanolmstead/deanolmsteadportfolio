@@ -46,7 +46,9 @@
         .hero-eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--amber); font-weight: 500; margin-bottom: 28px; }
         .hero-name { font-family: 'Playfair Display', serif; font-size: clamp(52px,9vw,120px); font-weight: 700; line-height: 1.0; letter-spacing: -1px; margin-bottom: 36px; }
         .hero-name em { font-style: italic; font-weight: 400; color: var(--amber); display: block; }
-        .hero-tagline { font-size: clamp(15px,1.4vw,19px); font-weight: 300; color: var(--warm-dim); max-width: 520px; line-height: 1.75; }
+        .hero-tagline { font-size: clamp(15px,1.4vw,19px); font-weight: 300; color: var(--warm-dim); max-width: 520px; line-height: 1.75; margin-bottom: 24px; }
+        .hero-email { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); font-weight: 500; text-decoration: none; opacity: 0.7; transition: opacity 0.2s; }
+        .hero-email:hover { opacity: 1; }
         .hero-scroll { position: absolute; bottom: 40px; right: 7vw; display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: rgba(245,240,235,.2); }
         .hero-scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, rgba(212,168,83,.15), transparent); animation: scrollLine 2.4s ease-in-out infinite; }
         @keyframes scrollLine { 0%,100% { transform: scaleY(1); opacity: .5; } 50% { transform: scaleY(.4); opacity: .2; } }
@@ -138,6 +140,7 @@
         <p class="hero-eyebrow">Web Designer &amp; Developer &mdash; 1996 to 2026</p>
         <h1 class="hero-name">Dean<br><em>Olmstead</em></h1>
         <p class="hero-tagline">Giving local businesses the professional online presence they deserve.</p>
+        <a class="hero-email" href="mailto:deanolmstead@gmail.com">deanolmstead@gmail.com</a>
     </section>
 
     <!-- Work -->
