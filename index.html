@@ -102,8 +102,6 @@
         .project-visual { position: relative; display: block; width: min(100%, 1080px); justify-self: end; min-width: 0; overflow: hidden; text-decoration: none; background: var(--ink-soft); box-shadow: inset 0 0 0 1px rgba(242,238,231,.12); transition: box-shadow .5s var(--ease-hover); }
         .project-visual:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 3px; }
         .project-visual:hover, .project-visual:focus-visible { box-shadow: inset 0 0 0 1px var(--accent-dim); }
-        .project-visual::before { content: 'View live ↗'; position: absolute; z-index: 3; top: 16px; right: 16px; padding: 8px 12px; background: rgba(11,13,12,.72); color: var(--accent-light); font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .13em; text-transform: uppercase; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; transform: translateY(-6px); transition: opacity .4s var(--ease-hover), transform .4s var(--ease-hover); pointer-events: none; }
-        .project-visual:hover::before, .project-visual:focus-visible::before { opacity: 1; transform: translateY(0); }
         .project-visual::after { content: ''; position: absolute; z-index: 2; right: 0; bottom: 0; left: 0; height: 32%; background: linear-gradient(transparent, rgba(11,13,12,.65)); opacity: .55; pointer-events: none; }
         .project-visual img { display: block; width: 100%; height: clamp(320px, 38vw, 640px); aspect-ratio: auto; object-fit: cover; object-position: top left; filter: saturate(.8) brightness(.82); transition: filter .7s var(--ease-hover); }
         .project-row:hover .project-visual img, .project-visual:hover img, .project-visual:focus-visible img { filter: saturate(1) brightness(1); }
